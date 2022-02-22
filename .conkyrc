@@ -1,0 +1,112 @@
+---------------------------------------------------
+---------------------------------------------------
+--    ~/.conkyrc                                 --
+--    Conky settings                             --
+--                                               --
+--    Version:         Beta 1.5                  --
+--    Date:            2019-11-14                --
+--    Development:     Markus Burth              --
+---------------------------------------------------
+---------------------------------------------------
+
+-- hddtemp instalieren um Festplattentemperatur anzuzeigen.
+-- Dann noch sudo 'dpkg-reconfigure hddtemp' in Konsole eingeben und Berechtigung geben.
+-- Mit 'sensors' in der Kommandozeile kann man die Lüfter und Sensoren abfragen.
+
+conky.config = {
+
+-- Arragement
+   use_spacer = 'left',
+   pad_percents = 3,
+   background = false,
+   xinerama_head = 1,             -- two monitors (0 = left, 1 = right)
+   alignment = 'top_right',       -- corner of your desktop (top_right or top_left)
+   gap_x = 20,                    -- left | right, in pixels
+   gap_y = 10,                    -- up | down, in pixels
+  
+-- Window specifications
+   own_window_argb_visual = true, -- transparency desktop (yes or no)
+   own_window_argb_value = 50,    -- percent transparent (0 - 255)
+   own_window_type = 'normal',
+   own_window_hints = 'undecorated,below,skip_taskbar,skip_pager,sticky',
+   own_window = true,
+   own_window_transparency = true,
+  
+-- General
+   use_xft = true,
+   update_interval = 1.0,         -- wie oft aktualisiert wird
+   double_buffer = true,
+   override_utf8_locale = yes,    -- ISO/IEC 10646
+
+-- Graph
+   draw_graph_borders = no,       -- Draw borders around graphs? (yes or no)
+   draw_borders = no,             -- Draw borders around text? (yes or no)
+   
+-- Font (1 = Text, 2 = Data, 3 = Headline, 4 = Time)
+   font = 'DejaVu Sans Mono:size=10',
+   color1 = 'brown2',
+   color2 = 'chocolate',
+   color3 = 'rosybrown3',
+   color4 = 'brown3',
+
+-- Template
+-- template1 = 8b4b0b ffc11f,         -- Unterer und oberer Gradient für den CPU-Auslastungs-Graphen
+-- template2 '8b4b0b' 'ffc11f',       -- Unterer und oberer Gradient für die Netzwerk-Auslastungs-Graphen
+
+}
+ conky.text = [[
+ 
+${color1}${goto 10}${font DejaVu Sans Mono:size=44:bold}${time %H}${font :size=20:bold}${voffset -25}'${time %M}${font :size=8:bold}${voffset -12}${time %S}
+${color1}${goto 85}${voffset 10}${font :size=8}${time %A}
+${color1}${goto 85}${voffset 1}${font :size=8}${time %d. %B}
+
+${color1}${font :size=8}SYSTEM ${stippled_hr 1}
+${color2}${font DejaVu Sans Mono:size=10} Hostname: ${color3}${alignr}${nodename}
+${color2} Kernel:   ${color3}${alignr}${kernel}
+${color2} Uptime:   ${color3}${alignr}${uptime}
+#${color2} Battery:     ${color3}${alignr}${color3} ${battery_short F} #(F = full, N = not present, E = empty or U = unknown)
+
+${color1}${font :size=8}TEMPERATURE ${stippled_hr 1}
+${color2}${font DejaVu Sans Mono:size=10} CPU1: ${color3}${hwmon 2 temp 5}°C ${color2}${alignc -57} ${color2} HDD:${alignc -60}${color3}${hddtemp /dev/sda}°C ${color2} ${alignr} CPU Fan:   ${color3}${hwmon 1 fan 1 1 0} RPM
+${color2} CPU2: ${color3}${hwmon 2 temp 2}°C ${color2}${alignc -40} ${color2} GPU:${color3}°C ${color2} ${alignr 2}Main Fan: ${color3} ${hwmon 1 fan 2 1 0} RPM
+${color2} CPU3: ${color3}${hwmon 2 temp 3}°C ${color2} 
+${color2} CPU4: ${color3}${hwmon 2 temp 4}°C ${color2}
+
+${color1}${font :size=8}PROCESSOR ${stippled_hr 1}
+${color2}${font DejaVu Sans Mono:size=10} CPU:${color3} ${freq_g} GHz ${alignr}${cpugraph 30,240 gradient colour 2}
+${color2} 1:${color3} ${cpu cpu1}% ${cpubar cpu1 6,110}  ${color2} 5:${color3} ${cpu cpu5}% ${cpubar cpu5 6,110}
+${color2} 2:${color3} ${cpu cpu2}% ${cpubar cpu2 6,110}  ${color2} 6:${color3} ${cpu cpu6}% ${cpubar cpu6 6,110}
+${color2} 3:${color3} ${cpu cpu3}% ${cpubar cpu3 6,110}  ${color2} 7:${color3} ${cpu cpu7}% ${cpubar cpu7 6,110}
+${color2} 4:${color3} ${cpu cpu4}% ${cpubar cpu4 6,110}  ${color2} 8:${color3} ${cpu cpu8}% ${cpubar cpu8 6,110}
+${color1}FILESYSTEMS ${stippled_hr 1}
+${color2} /:     ${color3} ${fs_used /} / ${fs_size /} ${fs_used_perc /}% ${fs_bar /}
+${color2} /home: ${color3} ${fs_used /home} / ${fs_size /home} ${fs_used_perc /home}% ${fs_bar /home}
+${color2} /var:  ${color3} ${fs_used /var} / ${fs_size /var} ${fs_used_perc /var}% ${fs_bar /var}
+${color2} /tmp:  ${color3} ${fs_used /tmp} / ${fs_size /tmp} ${fs_used_perc /tmp}% ${fs_bar /tmp}
+#${color2} /home${fs_size \1}
+#${color2} /var${fs_used_perc \1}
+#${color2} /tmp${fs_bar \1}
+
+${color1}${font :size=8}MEMORY ${stippled_hr 1}
+${color2}${font DejaVu Sans Mono:size=10} RAM: ${color3} ${mem} / ${memmax} ${memperc}% ${membar 6}
+${color2} Swap:${color3} ${swap} / ${swapmax} ${swapperc}% ${swapbar 6}
+
+${color1}${font :size=8}LOAD ${stippled_hr 1}
+${color2}${font DejaVu Sans Mono:size=10} NAME              PID    CPU    MEM
+${color3} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color3} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color3} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color3} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+${color2} Load: ${color3}(${loadavg})
+${color2} Processes: ${color3}${processes}  ${color2}Running:${color3}${running_processes}
+
+${color1}${font :size=8}NETWORK ${stippled_hr 1}
+${color2}${font DejaVu Sans Mono:size=10} LAN: ${color3}$alignr ${addr enp5s0}${color2} IPv4: ${color3}$alignr ${exec wget http://ipinfo.io/ip -qO -}
+${color2} IPv6: ${color3}$alignr ${exec wget https://icanhazip.com/ip -qO -}
+${color2} Up:    
+${color2} Down:  
+${color2}       Speed       Today       Week     ${time %B}
+${color2} Down: ${color3}${alignr 70}${downspeedf enp5s0}k/s${offset 40} ${alignr 50}${execi 300 vnstat | grep "today" | awk '{print $2 $3}'} ${alignr 25}${execi 300 vnstat -w | grep "current week" | awk '{print $3 $4}'} ${alignr 2}${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $3 $4}'}
+${color2} Up: ${color3}${alignr 62} ${upspeedf enp5s0}k/s ${offset 40} ${alignr 50}${execi 300 vnstat | grep "today" | awk '{print $5 $6}'} ${alignr 25}${execi 300 vnstat -w | grep "current week" | awk '{print $6 $7}'} ${alignr 2}${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $6 $7}'}
+
+]]
