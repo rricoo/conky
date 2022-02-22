@@ -3,9 +3,9 @@
 --    ~/.conkyrc                                 --
 --    Conky settings                             --
 --                                               --
---    Version:         Beta 1.5                  --
+--    Version:         Beta 1.5.1                  --
 --    Date:            2019-11-14                --
---    Development:     Markus Burth              --
+--    Development:     rico                      --
 ---------------------------------------------------
 ---------------------------------------------------
 
@@ -19,14 +19,14 @@ conky.config = {
    use_spacer = 'left',
    pad_percents = 3,
    background = false,
-   xinerama_head = 1,             -- two monitors (0 = left, 1 = right)
-   alignment = 'top_right',       -- corner of your desktop (top_right or top_left)
-   gap_x = 20,                    -- left | right, in pixels
-   gap_y = 10,                    -- up | down, in pixels
+   xinerama_head = 1,                 -- two monitors (0 = left, 1 = right)
+   alignment = 'top_right',           -- corner of your desktop (top_right or top_left)
+   gap_x = 20,                        -- left | right, in pixels
+   gap_y = 10,                        -- up | down, in pixels
   
 -- Window specifications
-   own_window_argb_visual = true, -- transparency desktop (yes or no)
-   own_window_argb_value = 50,    -- percent transparent (0 - 255)
+   own_window_argb_visual = true,     -- transparency desktop (true or false)
+   own_window_argb_value = 50,        -- percent transparent (0 - 255)
    own_window_type = 'normal',
    own_window_hints = 'undecorated,below,skip_taskbar,skip_pager,sticky',
    own_window = true,
@@ -34,13 +34,13 @@ conky.config = {
   
 -- General
    use_xft = true,
-   update_interval = 1.0,         -- wie oft aktualisiert wird
+   update_interval = 1.0,             -- How often updated
    double_buffer = true,
-   override_utf8_locale = yes,    -- ISO/IEC 10646
+   override_utf8_locale = yes,        -- ISO/IEC 10646
 
 -- Graph
-   draw_graph_borders = no,       -- Draw borders around graphs? (yes or no)
-   draw_borders = no,             -- Draw borders around text? (yes or no)
+   draw_graph_borders = no,           -- Draw borders around graphs? (yes or no)
+   draw_borders = no,                 -- Draw borders around text? (yes or no)
    
 -- Font (1 = Text, 2 = Data, 3 = Headline, 4 = Time)
    font = 'DejaVu Sans Mono:size=10',
@@ -50,8 +50,8 @@ conky.config = {
    color4 = 'brown3',
 
 -- Template
--- template1 = 8b4b0b ffc11f,         -- Unterer und oberer Gradient für den CPU-Auslastungs-Graphen
--- template2 '8b4b0b' 'ffc11f',       -- Unterer und oberer Gradient für die Netzwerk-Auslastungs-Graphen
+-- template1 = 8b4b0b ffc11f,         -- CPU Usage Graph
+-- template2 '8b4b0b' 'ffc11f',       -- Network Load
 
 }
  conky.text = [[
